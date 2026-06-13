@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalSync</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+ <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-wave-square brand-icon"></i>
+                <h2>VitalSync</h2>
+            </div>
+            
+            <nav class="navigation">
+                <a href="#" class="nav-link active" data-target="dashboard">
+                    <i class="fa-solid fa-house"></i> Dashboard
+                </a>
+                <a href="#" class="nav-link" data-target="workout">
+                    <i class="fa-solid fa-dumbbell"></i> Workouts
+                </a>
+                <a href="#" class="nav-link" data-target="calorie">
+                    <i class="fa-solid fa-apple-whole"></i> Nutrition
+                </a>
+                <a href="#" class="nav-link" data-target="analytics">
+                    <i class="fa-solid fa-chart-simple"></i> Analytics
+                </a>
+                <a href="#" class="nav-link" data-target="library">
+                    <i class="fa-solid fa-folder-open"></i> Exercises
+                </a>
+                <a href="#" class="nav-link" data-target="profile">
+                    <i class="fa-solid fa-gear"></i> Settings
+                </a>
+            </nav>
+        </aside>
+
+        <main class="workspace">
+            
+            <section id="dashboard" class="panel active-panel">
+                <header class="panel-header">
+                    <div>
+                        <h1>Hello, <span id="dash-username">User</span></h1>
+                        <p class="subtitle">Your overview for today</p>
+                    </div>
+                </header>
+                
+                <div class="stat-grid">
+                    <div class="card card-primary">
+                        <span class="card-title">Energy Burned</span>
+                        <p class="card-value"><span id="dash-calories-burned">0</span> <span class="unit">kcal</span></p>
+                    </div>
+                    <div class="card card-secondary">
+                        <span class="card-title">Calorie Balance</span>
+                        <p class="card-value"><span id="dash-calories-intake">0 / 2000</span> <span class="unit">kcal</span></p>
+                    </div>
+                    <div class="card">
+                        <span class="card-title">Completed Workouts</span>
+                        <p class="card-value"><span id="dash-workout-count">0</span> <span class="unit">logs</span></p>
+                    </div>
+                </div>
+
+                <div class="card margin-top">
+                    <h3 class="section-title">Today's Activity Feed</h3>
+                    <ul id="today-log-list" class="minimal-list">
+                        </ul>
+                </div>
+            </section>
+
+            <section id="workout" class="panel">
+                <header class="panel-header">
+                    <h1>Log Workout</h1>
+                </header>
+                <div class="card">
+                    <form id="workout-form" class="minimal-form">
+                        <div class="form-group">
+                            <label>Exercise Name</label>
+                            <input type="text" id="workout-name" placeholder="e.g., Incline Bench Press" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Sets</label>
+                                <input type="number" id="workout-sets" placeholder="0" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Reps</label>
+                                <input type="number" id="workout-reps" placeholder="0" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Weight (kg)</label>
+                                <input type="number" id="workout-weight" placeholder="0" min="0" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Exercise</button>
+                    </form>
+                </div>
+
+                <div class="card margin-top">
+                    <h3 class="section-title">Recorded Sets</h3>
+                    <div class="table-wrapper">
+                        <table class="minimal-table">
+                            <thead>
+                                <tr>
+                                    <th>Exercise</th>
+                                    <th>Sets</th>
+                                    <th>Reps</th>
+                                    <th>Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody id="workout-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+           <!-- Nutrition -->
+
+            <section id="calorie" class="panel">
+                <header class="panel-header">
+                    <h1>Nutrition Tracker</h1>
+                </header>
+                <div class="card">
+                    <form id="calorie-form" class="minimal-form">
+                        <div class="form-group">
+                            <label>Meal or Food Item</label>
+                            <input type="text" id="food-name" placeholder="e.g., Avocado Toast with Eggs" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Calories (kcal)</label>
+                            <input type="number" id="food-calories" placeholder="0" min="1" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Log Meal</button>
+                    </form>
+                </div>
+
+                <div class="card margin-top">
+                    <h3 class="section-title">Logged Meals</h3>
+                    <ul id="meal-list" class="minimal-list complex-list">
+                        </ul>
+                </div>
+            </section>
+
+            <section id="ai-generator" class="panel">
+                <header class="panel-header">
+                    <h1>AI Workout Architect</h1>
+                    <p class="subtitle">Generate tailored target routines leveraging neural biometric matching</p>
+                </header>
+                
+                <div class="card">
+                    <h3 class="section-title">Configure Routine Parameters</h3>
+                    <div class="minimal-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Training Focus</label>
+                                <select id="ai-focus" class="minimal-select">
+                                    <option value="Hypertrophy">Hypertrophy (Muscle Growth)</option>
+                                    <option value="Strength">Absolute Strength (Power)</option>
+                                    <option value="Endurance">Muscular Endurance</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Target Split</label>
+                                <select id="ai-split" class="minimal-select">
+                                    <option value="Push">Push Vector (Chest/Shoulders/Triceps)</option>
+                                    <option value="Pull">Pull Vector (Back/Biceps)</option>
+                                    <option value="Legs">Leg Matrix (Quads/Hamstrings/Calves)</option>
+                                    <option value="FullBody">Full Body System</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button id="btn-generate-ai" class="btn btn-primary">Generate Routine</button>
+                    </div>
+                </div>
+
+                <div id="ai-output-container" class="card margin-top" style="display: none;">
+                    <div class="ai-generated-header">
+                        <h3 class="section-title" style="margin-bottom: 0;"><i class="fa-solid fa-microchip" style="color: #2563EB; margin-right: 8px;"></i> Generated Matrix</h3>
+                        <span class="ai-badge">AI Optimized</span>
+                    </div>
+                    
+                    <div class="table-wrapper margin-top">
+                        <table class="minimal-table">
+                            <thead>
+                                <tr>
+                                    <th>Exercise</th>
+                                    <th>Sets</th>
+                                    <th>Reps</th>
+                                    <th>Suggested Mass Load</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ai-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="ai-action-footer margin-top">
+                        <button id="btn-commit-workout" class="btn btn-secondary">Commit to Active Workout Log</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="analytics" class="panel">
+                <header class="panel-header">
+                    <h1>Analytics Dashboard</h1>
+                </header>
+                <div class="analytics-layout">
+                    <div class="card">
+                        <h3 class="section-title">Weekly Consistency</h3>
+                        <div class="minimal-chart">
+                            <div class="chart-col"><div class="bar bar-p" style="height: 50%;"></div><span>M</span></div>
+                            <div class="chart-col"><div class="bar bar-p" style="height: 80%;"></div><span>T</span></div>
+                            <div class="chart-col"><div class="bar bar-p" style="height: 35%;"></div><span>W</span></div>
+                            <div class="chart-col"><div class="bar bar-s" style="height: 90%;"></div><span>T</span></div>
+                            <div class="chart-col"><div class="bar bar-p" style="height: 65%;"></div><span>F</span></div>
+                            <div class="chart-col"><div class="bar bar-s" style="height: 20%;"></div><span>S</span></div>
+                            <div class="chart-col"><div class="bar bar-p" style="height: 45%;"></div><span>S</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card margin-top">
+                        <h3 class="section-title">Calculated Metrics</h3>
+                        <div class="metrics-summary">
+                            <div class="metric-row">
+                                <span class="label">Total Estimated Weight:</span>
+                                <span class="value"><span id="analytics-total-weight">0</span> kg</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Net Calorie Delta:</span>
+                                <span class="value"><span id="analytics-net-calories">0</span> kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="library" class="panel">
+                <header class="panel-header">
+                    <h1>Exercise Reference</h1>
+                </header>
+                <div class="library-grid" id="library-grid">
+                    </div>
+            </section>
+
+            <section id="profile" class="panel">
+                <header class="panel-header">
+                    <h1>Profile Settings</h1>
+                </header>
+                <div class="card">
+                    <form id="profile-form" class="minimal-form">
+                        <div class="form-group">
+                            <label>User Identifier / Name</label>
+                            <input type="text" id="profile-name" value="User" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Age (years)</label>
+                                <input type="number" id="profile-age" value="25">
+                            </div>
+                            <div class="form-group">
+                                <label>Current Weight (kg)</label>
+                                <input type="number" id="profile-weight" value="70">
+                            </div>
+                            <div class="form-group">
+                                <label>Target Calorie Threshold</label>
+                                <input type="number" id="profile-goal" value="2000">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+<script src="app.js"></script>
+</html>
